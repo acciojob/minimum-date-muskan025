@@ -1,10 +1,17 @@
 function minDate(dates) {
-  //write you code here
-	const dateObject = dates.map(dateString=>new Date(dateString))
+  // Convert date strings to Date objects
+  const dateObjects = dates.map(dateString => new Date(dateString.replace(/-/g, '/')));
 
-	const minDate = new Date(Math.min(...dateObject))
+  // Find the minimum date using timestamps
+  const minTimestamp = Math.min(...dateObjects.map(date => date.getTime()));
 
-	return minDate.toIS0String().split('T')[0]
+  // Create a new Date object using the minimum timestamp
+  const minDate = new Date(minTimestamp);
+
+  // Format the result as "YYYY/MM/DD"
+  const formattedMinDate = `${minDate.getFullYear()}/${(minDate.getMonth() + 1).toString().padStart(2, '0')}/${minDate.getDate().toString().padStart(2, '0')}`;
+
+  return formattedMinDate;
 }
 
 // Do not change the code
